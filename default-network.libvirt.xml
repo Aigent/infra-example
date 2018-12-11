@@ -1,0 +1,18 @@
+<!--
+Location:   default libvirt network
+Scope:      all libvirt hosts
+Purpose:    allow libvirt guests to communicate with all other vm guests on other hosts
+Notes:      each host must have a dedicated CIDR without collisions on other hosts
+-->
+
+<network>
+  <name>default</name>
+  <forward mode='route'/> <!-- "route" setting is important -->
+  <bridge name='virbr0' stp='on' delay='0'/>
+  <ip address='192.168.1.1' netmask='255.255.255.0'>
+    <dhcp>
+      <range start='192.168.1.20' end='192.168.1.254'/> <!-- change these values for every host -->
+    </dhcp>
+  </ip>
+</network>
+

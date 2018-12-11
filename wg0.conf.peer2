@@ -1,0 +1,27 @@
+# Location: /etc/wireguard/wg0.conf
+# Scope:    peer2
+# Purpose:  wireguard config for peer2
+# Notes:    each peer has routes for all other peers, 
+#           as well as routes for each peers' guest network
+
+
+# peer2
+[Interface]
+Address = 172.16.0.2/24
+PrivateKey = <private key>
+ListenPort = 51820
+PostUp = ip link set mtu 2800 dev %i
+
+# peer1
+[Peer]
+PublicKey = <public key of peer2>
+AllowedIPs = 172.16.0.1/32, 192.168.1.0/24
+Endpoint = <ip of peer1>:51820
+PersistentKeepalive = 25
+
+# peer3
+[Peer]
+PublicKey = <public key of peer3>
+AllowedIPs = 172.16.0.3/32, 192.168.3.0/24
+Endpoint = <ip of peer3>:51820
+PersistentKeepalive = 25

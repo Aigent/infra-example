@@ -1,0 +1,43 @@
+# Location: ~/.ssh/config
+# Scope:    local dev workstation
+# Purpose:  allow easy access to servers in nested networks
+# Notes:    this config file is helpful during the kubespray phase
+
+# physical host 1
+Host libvirt-host-1
+    Hostname <ip-or-hostname>
+    IdentityFile ~/.ssh/libvirt-host-1.pub
+    User root
+
+# physical host 2
+Host libvirt-host-2
+    Hostname <ip-or-hostname>
+    IdentityFile ~/.ssh/libvirt-host-2.pub
+    User root
+
+# physical host 3
+Host libvirt-host-3
+    Hostname <ip-or-hostname>
+    IdentityFile ~/.ssh/libvirt-host-3.pub
+    User root
+
+# host 1 guest network
+Host 192.168.1.*
+    IdentityFile ~/.ssh/ssh-key-prebaked-into-vm-guest.pub
+    StrictHostKeyChecking no
+    User root
+    ProxyCommand ssh -A libvirt-host-1 -W %h:%p
+
+# host 2 guest network
+Host 192.168.2.*
+    IdentityFile ~/.ssh/ssh-key-prebaked-into-vm-guest.pub
+    StrictHostKeyChecking no
+    User root
+    ProxyCommand ssh -A libvirt-host-1 -W %h:%p
+
+# host 3 guest network
+Host 192.168.3.*
+    IdentityFile ~/.ssh/ssh-key-prebaked-into-vm-guest.pub
+    StrictHostKeyChecking no
+    User root
+    ProxyCommand ssh -A libvirt-host-1 -W %h:%p
