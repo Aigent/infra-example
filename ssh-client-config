@@ -33,11 +33,11 @@ Host 192.168.2.*
     IdentityFile ~/.ssh/ssh-key-prebaked-into-vm-guest.pub
     StrictHostKeyChecking no
     User root
-    ProxyCommand ssh -A libvirt-host-1 -W %h:%p
+    ProxyCommand ssh -A libvirt-host-2 -W %h:%p
 
 # host 3 guest network
 Host 192.168.3.*
     IdentityFile ~/.ssh/ssh-key-prebaked-into-vm-guest.pub
     StrictHostKeyChecking no
     User root
-    ProxyCommand ssh -A libvirt-host-1 -W %h:%p
+    ProxyCommand ssh -A libvirt-host-3 -W %h:%p
